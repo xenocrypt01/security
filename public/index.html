@@ -3,75 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Security Analyzer - MR SMILE MODDERS</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Advanced Web Security Scanner - MR SMILE MODDERS</title>
+    <link rel="stylesheet" href="scanner.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <i class="fas fa-shield-alt"></i>
-                <h1>EMAIL SECURITY ANALYZER</h1>
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-bug"></i>
+                    <h1>WEB SECURITY SCANNER</h1>
+                </div>
+                <p class="tagline">Professional Vulnerability Assessment Tool</p>
             </div>
-            <div class="subtitle">Professional Email Security Assessment Tool</div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-number" id="totalScans">0</span>
+                    <span class="stat-label">Total Scans</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="vulnerabilitiesFound">0</span>
+                    <span class="stat-label">Vulnerabilities</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="securityScore">0</span>
+                    <span class="stat-label">Avg Score</span>
+                </div>
+            </div>
         </header>
 
-        <div class="main-content">
-            <div class="input-section">
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="emailInput" placeholder="Enter email address to analyze">
+        <!-- Main Scanner Interface -->
+        <main class="main-content">
+            <!-- Target Input Section -->
+            <section class="scanner-input">
+                <div class="input-container">
+                    <div class="url-input-group">
+                        <i class="fas fa-globe"></i>
+                        <input type="url" id="targetUrl" placeholder="https://example.com" required>
+                    </div>
+                    <div class="scan-options">
+                        <div class="option-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="quickScan" checked>
+                                <span class="checkmark"></span>
+                                Quick Scan
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="deepScan">
+                                <span class="checkmark"></span>
+                                Deep Scan
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="apiScan">
+                                <span class="checkmark"></span>
+                                API Testing
+                            </label>
+                        </div>
+                    </div>
+                    <button id="startScan" class="scan-button">
+                        <i class="fas fa-search"></i>
+                        <span>START SECURITY SCAN</span>
+                    </button>
                 </div>
-                <div class="input-group">
-                    <i class="fas fa-globe"></i>
-                    <input type="text" id="domainInput" placeholder="Enter domain (optional)">
-                </div>
-                <button id="analyzeBtn" class="analyze-btn">
-                    <i class="fas fa-search"></i>
-                    ANALYZE SECURITY
-                </button>
-            </div>
+            </section>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-dns"></i>
-                    <h3>DNS Analysis</h3>
-                    <p>MX Records, SPF, DMARC Analysis</p>
+            <!-- Scan Progress -->
+            <section id="scanProgress" class="scan-progress hidden">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <h3><i class="fas fa-cogs"></i> Scanning in Progress...</h3>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="step active" id="step1">
+                            <i class="fas fa-network-wired"></i>
+                            <span>Network Analysis</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security Headers</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <i class="fas fa-lock"></i>
+                            <span>SSL/TLS Check</span>
+                        </div>
+                        <div class="step" id="step4">
+                            <i class="fas fa-bug"></i>
+                            <span>Vulnerability Scan</span>
+                        </div>
+                        <div class="step" id="step5">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Report Generation</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-key"></i>
-                    <h3>Email Validation</h3>
-                    <p>Format validation and domain verification</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-virus"></i>
-                    <h3>Security Headers</h3>
-                    <p>Email security policy analysis</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-bug"></i>
-                    <h3>Vulnerability Check</h3>
-                    <p>Common email security issues</p>
-                </div>
-            </div>
+            </section>
 
-            <div id="loadingSection" class="loading hidden">
-                <div class="spinner"></div>
-                <p>Analyzing email security...</p>
-            </div>
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden">
+                <div class="results-header">
+                    <h2><i class="fas fa-file-alt"></i> Security Assessment Report</h2>
+                    <div class="export-buttons">
+                        <button id="exportPDF" class="export-btn">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                        <button id="exportJSON" class="export-btn">
+                            <i class="fas fa-code"></i> Export JSON
+                        </button>
+                    </div>
+                </div>
 
-            <div id="resultsSection" class="results hidden">
-                <h2><i class="fas fa-chart-line"></i> Security Analysis Results</h2>
-                <div id="resultsContent"></div>
-            </div>
-        </div>
+                <!-- Security Score Card -->
+                <div class="score-card">
+                    <div class="score-circle">
+                        <div class="score-content">
+                            <span id="finalScore" class="score-number">85</span>
+                            <span class="score-suffix">/100</span>
+                        </div>
+                    </div>
+                    <div class="score-details">
+                        <h3 id="scoreRating">Good Security</h3>
+                        <p id="scoreDescription">Your website has good security practices but needs improvements.</p>
+                        <div class="score-breakdown">
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">SSL/TLS:</span>
+                                <span id="sslScore" class="breakdown-value">95</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Headers:</span>
+                                <span id="headersScore" class="breakdown-value">80</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Vulnerabilities:</span>
+                                <span id="vulnScore" class="breakdown-value">75</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Vulnerability Cards -->
+                <div id="vulnerabilityCards" class="vulnerability-grid">
+                    <!-- Dynamic vulnerability cards will be inserted here -->
+                </div>
+
+                <!-- Detailed Results Tabs -->
+                <div class="results-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-button active" data-tab="overview">
+                            <i class="fas fa-eye"></i> Overview
+                        </button>
+                        <button class="tab-button" data-tab="headers">
+                            <i class="fas fa-list"></i> Security Headers
+                        </button>
+                        <button class="tab-button" data-tab="ssl">
+                            <i class="fas fa-certificate"></i> SSL/TLS
+                        </button>
+                        <button class="tab-button" data-tab="vulnerabilities">
+                            <i class="fas fa-exclamation-triangle"></i> Vulnerabilities
+                        </button>
+                        <button class="tab-button" data-tab="recommendations">
+                            <i class="fas fa-lightbulb"></i> Recommendations
+                        </button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="overview-tab" class="tab-pane active">
+                            <div id="overviewContent"></div>
+                        </div>
+                        <div id="headers-tab" class="tab-pane">
+                            <div id="headersContent"></div>
+                        </div>
+                        <div id="ssl-tab" class="tab-pane">
+                            <div id="sslContent"></div>
+                        </div>
+                        <div id="vulnerabilities-tab" class="tab-pane">
+                            <div id="vulnerabilitiesContent"></div>
+                        </div>
+                        <div id="recommendations-tab" class="tab-pane">
+                            <div id="recommendationsContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <div class="footer-logo">
+                <div class="footer-brand">
                     <i class="fas fa-code"></i>
                     <span>MR SMILE MODDERS</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API Reference</a>
+                    <a href="#" class="footer-link">Support</a>
                 </div>
                 <div class="footer-text">
                     Professional Security Solutions & Penetration Testing Tools
@@ -80,6 +211,6 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="scanner.js"></script>
 </body>
 </html>
