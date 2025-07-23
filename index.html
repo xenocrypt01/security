@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Security Analyzer - MR SMILE MODDERS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>EMAIL SECURITY ANALYZER</h1>
+            </div>
+            <div class="subtitle">Professional Email Security Assessment Tool</div>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="emailInput" placeholder="Enter email address to analyze">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-globe"></i>
+                    <input type="text" id="domainInput" placeholder="Enter domain (optional)">
+                </div>
+                <button id="analyzeBtn" class="analyze-btn">
+                    <i class="fas fa-search"></i>
+                    ANALYZE SECURITY
+                </button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-dns"></i>
+                    <h3>DNS Analysis</h3>
+                    <p>MX Records, SPF, DMARC Analysis</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-key"></i>
+                    <h3>Email Validation</h3>
+                    <p>Format validation and domain verification</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-virus"></i>
+                    <h3>Security Headers</h3>
+                    <p>Email security policy analysis</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Vulnerability Check</h3>
+                    <p>Common email security issues</p>
+                </div>
+            </div>
+
+            <div id="loadingSection" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Analyzing email security...</p>
+            </div>
+
+            <div id="resultsSection" class="results hidden">
+                <h2><i class="fas fa-chart-line"></i> Security Analysis Results</h2>
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
+                    <span>MR SMILE MODDERS</span>
+                </div>
+                <div class="footer-text">
+                    Professional Security Solutions & Penetration Testing Tools
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
